@@ -1,6 +1,8 @@
 package com.train
 
+import java.lang.NumberFormatException
 import java.util.*
+import javax.print.attribute.IntegerSyntax
 import kotlin.math.sin
 
 object OpConstansKotlin {
@@ -9,11 +11,43 @@ object OpConstansKotlin {
 }
 
 fun main(args: Array<String>) {
+    var total_num = -1
+    var round_num = -1
+    var input: String
     val scanner = Scanner(System.`in`)
-    print("Please enter number of tickets: ")
-    val total_num = scanner.nextInt()
-    print("How many round-trip tickets: ")
-    val round_num = scanner.nextInt()
+    do {
+        // Check Total Number of Tickets ( Single plus Round-Trip )
+        print("Please enter number of tickets: ")
+        input = scanner.next()
+        try {
+            total_num = Integer.parseInt(input)
+            // Number of Tickets < 1 is illegal
+            if (total_num < 1) {
+                println("Invalid Ticket Number! (Negative Number Wrong)")
+            }
+        } catch (e: NumberFormatException) {
+            // Number of Tickets must be Integer
+            println("Invalid Ticket Number! (Non Integer Wrong)")
+        }
+    } while (total_num < 1)
+    do {
+        // Check Total Round-Trip Number of Tickets
+        print("How many round-trip tickets: ")
+        input = scanner.next()
+        try {
+            round_num = Integer.parseInt(input)
+            // Number of Tickets < 1 is illegal
+            if (round_num < 1) {
+                println("Invalid Round-Trip Tickets! (Negative Number Wrong)")
+            // Number of Round-Trip Tickets must be lower than Number of Total Tickets
+            } else if (round_num > total_num) {
+                println("Invalid Round-Trip Tickets! (Round-Trip Tickets> Total Tickets)")
+            }
+        } catch (e: NumberFormatException) {
+            // Number of Tickets must be Integer
+            println("Invalid Round-Trip Tickets! (Non Integer Wrong)")
+        }
+    } while (round_num < 1 || round_num > total_num)
     var t = TesterKotlin(total_num, round_num)
     t.print()
 }
