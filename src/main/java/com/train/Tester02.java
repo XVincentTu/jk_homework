@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class Tester02 {
     public static void main(String[] args) {
-        int total_num = 0, round_num = 0, times = 1;
+        int total_num, round_num, times = 0, exception;
         int final_total_num = 0, final_round_num = 0;
         Scanner scanner = new Scanner(System.in);
         do {
+            total_num = 0; round_num = 0; times++; exception = 0;
             // Check Total Number of Tickets ( Single plus Round-Trip )
             System.out.println("=== Round " + times + " ===");
             System.out.println("If you want to exit the program, please type -1");
@@ -44,19 +45,18 @@ public class Tester02 {
             } catch (NumberFormatException e) {
                 // Number of Tickets must be Integer
                 System.out.println("Invalid Ticket Number! (Non Integer Wrong)");
+                exception = 1;
             }
-            times++;
             total_num = (total_num == -1) ? 0 : total_num;
             round_num = (total_num == 0) ? 0 : round_num;
             Ticket02 ticket = new Ticket02(total_num, round_num);
             final_total_num += total_num;
             final_round_num += round_num;
-            //final_total_num = (total_num != -1) ? final_total_num + total_num : final_total_num;
-            //final_round_num = (round_num != -1) ? final_round_num + round_num : final_round_num;
             ticket.print();
-        } while (total_num != 0);
+        } while (total_num != 0 || exception == 1);
+        // Print out the statistics information
         Ticket02 ticketEnd = new Ticket02(final_total_num, final_round_num);
-        System.out.println("=== Final Statistics ===");
+        System.out.println("=== Final Statistics ( Total Round: " + times + ") ===");
         ticketEnd.print();
     }
 }
