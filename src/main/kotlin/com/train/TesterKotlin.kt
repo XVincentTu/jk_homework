@@ -2,8 +2,6 @@ package com.train
 
 import java.lang.NumberFormatException
 import java.util.*
-import javax.print.attribute.IntegerSyntax
-import kotlin.math.sin
 
 object OpConstansKotlin {
     const val SINGLE_PRICE = 1000;
